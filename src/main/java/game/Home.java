@@ -73,13 +73,11 @@ public class Home
 
     public int getRow()
     {
-        int row = (Integer) comboBoxRow.getSelectedItem();
-        return row;
+        return (Integer) comboBoxRow.getSelectedItem();
     }
 
     public int getCol()
     {
-        int col = (Integer) comboBoxCol.getSelectedItem();
-        return col;
+        return (Integer) comboBoxCol.getSelectedItem();
     }
 }
