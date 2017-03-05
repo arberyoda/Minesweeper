@@ -21,7 +21,7 @@ public class SingleField extends JButton
 
     public int getNumber()
     {
-        return this.number;
+        return number;
     }
 
     public void setNumber(int number)
@@ -31,7 +31,7 @@ public class SingleField extends JButton
 
     public boolean isMine()
     {
-        return this.isMine;
+        return isMine;
     }
 
     public void setMine(boolean mine)
@@ -41,7 +41,7 @@ public class SingleField extends JButton
 
     public boolean isOpen()
     {
-        return this.isOpen;
+        return isOpen;
     }
 
     public void setOpen(boolean open)
@@ -52,6 +52,6 @@ public class SingleField extends JButton
     @Override
     public String toString()
     {
-        return "SingleField{" + "number=" + this.number + ", isMine=" + this.isMine + '}';
+        return "SingleField{" + "number=" + number + ", isMine=" + isMine + ", isOpen=" + isOpen + '}';
     }
 }

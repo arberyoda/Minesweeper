@@ -1,5 +1,8 @@
 package game;
 
+import gui.Game;
+import gui.Home;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,58 +15,82 @@ import java.util.Random;
  */
 public class Field
 {
+    private Home home;
+    private Game game;
+    private Player player;
     private int row;
     private int col;
     private SingleField singleFields[][];
-    private JPanel panelGame;
-    private int mines;
+    private int minesTotal;
+    private int minesCurrent;
     private int minesAround;
+    private boolean isWon;
+    private int fieldsTotal;
 
-    public Field(int row, int col)
+    public Field(Home home, Game game)
     {
-        this.row = row;
-        this.col = col;
+        this.home = home;
+        this.game = game;
+        this.player = new Player(home.getName());
+        this.row = home.getRow();
+        this.col = home.getCol();
         this.singleFields = new SingleField[this.row][this.col];
-        this.panelGame = new JPanel();
-        this.mines = 0;
+        this.minesTotal = 0;
+        this.minesCurrent = 0;
         this.minesAround = 0;
+        this.isWon = false;
+        this.fieldsTotal = 0;
+
         createField();
     }
 
     public void createField()
     {
-        panelGame.setLayout(new GridLayout(this.row, this.col));
+        game.getPanelGame().setLayout(new GridLayout(row, col));
 
-        for(int r=0; r<this.row; r++)
+        for(int r=0; r<row; r++)
         {
-            for(int c=0; c<this.col; c++)
+            for(int c=0; c<col; c++)
             {
                 singleFields[r][c] = new SingleField();
-                panelGame.add(singleFields[r][c]);
+                game.getPanelGame().add(singleFields[r][c]);
                 singleFields[r][c].addActionListener(new KeyListener());
             }
         }
-        setMines();
+
+        calculateMines();
+        player.calculateLives(getMinesTotal());
     }
 
-    public JPanel getField()
+    private void calculateMines()
     {
-        return panelGame;
+        minesTotal = Math.round((row + col) / 2); // TODO Make better calculation
+        setMinesCurrent(minesTotal);
     }
 
-    private void setMines()
+    private void setMinesTotal(int minesTotal)
     {
-        this.mines = Math.round((row + col) / 2); // TODO Make better calculation
+        this.minesTotal = minesTotal;
     }
 
-    private int getMines()
+    public int getMinesTotal()
     {
-        return this.mines;
+        return minesTotal;
+    }
+
+    public int getMinesCurrent()
+    {
+        return minesCurrent;
+    }
+
+    public void setMinesCurrent(int minesCurrent)
+    {
+        this.minesCurrent = minesCurrent;
     }
 
     public void placeMines()
     {
-        for (int i = 0; i < getMines(); i++)
+        for(int i = 0; i < getMinesTotal(); i++)
         {
             Random rand = new Random();
             int r = rand.nextInt(row);
@@ -81,21 +108,21 @@ public class Field
 
     public void minesAround()
     {
-        for (int row = 0; row < singleFields.length; row++)
+        for(int row = 0; row < singleFields.length; row++)
         {
-            for (int col = 0; col < singleFields.length; col++)
+            for(int col = 0; col < singleFields.length; col++)
             {
-                if (!(singleFields[row][col].isMine()))
+                if(!(singleFields[row][col].isMine()))
                 {
                     minesAround = 0;
 
-                    for (int r = row - 1; r <= row + 1; r++)
+                    for(int r = row - 1; r <= row + 1; r++)
                     {
-                        for (int c = col - 1; c <= col + 1; c++)
+                        for(int c = col - 1; c <= col + 1; c++)
                         {
-                            if (0 <= r && r < singleFields.length && 0 <= c && c < singleFields.length)
+                            if(0 <= r && r < singleFields.length && 0 <= c && c < singleFields.length)
                             {
-                                if (singleFields[r][c].isMine())
+                                if(singleFields[r][c].isMine())
                                 {
                                     ++minesAround;
                                 }
@@ -109,6 +136,64 @@ public class Field
         }
     }
 
+    public Player getPlayer()
+    {
+        return player;
+    }
+
+    private void winningCondition()
+    {
+        if(getFieldsTotal() - getMinesTotal() == getOpenFields() - getMinesTotal())
+        {
+            setWon(true);
+        }
+    }
+
+    public boolean isWon()
+    {
+        winningCondition();
+        return isWon;
+    }
+
+    public void setWon(boolean won)
+    {
+        this.isWon = won;
+    }
+
+    public int getOpenFields()
+    {
+        int openFields = 0;
+
+        for(int r=0; r<row; r++)
+        {
+            for(int c=0; c<col; c++)
+            {
+                if(singleFields[r][c].isOpen())
+                {
+                    openFields++;
+                }
+            }
+        }
+
+        return openFields;
+    }
+
+    public int getFieldsTotal()
+    {
+        calculateFieldsTotal();
+        return fieldsTotal;
+    }
+
+    public void setFieldsTotal(int fieldsTotal)
+    {
+        this.fieldsTotal = fieldsTotal;
+    }
+
+    public void calculateFieldsTotal()
+    {
+        setFieldsTotal(row*col);
+    }
+
     class KeyListener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
@@ -120,19 +205,37 @@ public class Field
             if(!singleField.isOpen())
             {
                 singleField.setOpen(true);
+                game.getTextFieldOpenFields().setText(String.valueOf(getOpenFields()));
+                game.getTextFieldClosedFields().setText(String.valueOf(getFieldsTotal() - getOpenFields()));
 
                 if(singleField.isMine())
                 {
                     singleField.setBackground(Color.red);
                     singleField.setText("X");
+                    player.setLives(player.getLives() - 1);
+                    game.getTextFieldNumberOfLives().setText(String.valueOf(player.getLives()));
+                    setMinesCurrent(getMinesCurrent() - 1);
+                    game.getTextFieldNumberOfMines().setText(String.valueOf(getMinesCurrent()));
+
+                    if(player.getLives() < 0)
+                    {
+                        JOptionPane.showMessageDialog(game.getFrameGame(), "Game over!");
+                        game.restartGame();
+                    }
                 }
                 else
                 {
                     singleField.setBackground(Color.gray);
                     singleField.setText(String.valueOf(singleField.getNumber()));
 
+                    if(isWon())
+                    {
+                        JOptionPane.showMessageDialog(game.getFrameGame(), "You win!");
+                        game.restartGame();
+                    }
                 }
 
+                System.out.println(player.toString());
                 System.out.println(singleField.toString());
             }
         }

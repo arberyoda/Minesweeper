@@ -1,6 +1,6 @@
 package main;
 
-import game.Home;
+import gui.Home;
 
 /**
  * @author Arber Heqimi
@@ -12,6 +12,5 @@ public class Main
     {
         Home home = new Home();
         home.paint();
-        System.out.println("Minesweeper has been started");
     }
 }

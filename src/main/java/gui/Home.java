@@ -1,4 +1,4 @@
-package game;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,16 +59,8 @@ public class Home
         panelHome.add(buttonStart);
 
         frameHome.add(panelHome);
+        frameHome.setLocationRelativeTo(null);
         frameHome.setVisible(true);
-    }
-
-    class KeyListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            Game game = new Game(frameHome, getRow(), getCol());
-            game.paint();
-        }
     }
 
     public int getRow()
@@ -79,5 +71,23 @@ public class Home
     public int getCol()
     {
         return (Integer) comboBoxCol.getSelectedItem();
+    }
+
+    public String getName()
+    {
+        return textFieldName.getText();
+    }
+
+    public JFrame getFrameHome()
+    {
+        return frameHome;
+    }
+
+    class KeyListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            new Game(Home.this);
+        }
     }
 }
