@@ -33,7 +33,7 @@ public class Home
         frameHome.setResizable(false);
         frameHome.setSize(800, 600);
         frameHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameHome.setLayout(new BorderLayout(1, 1));
+        frameHome.setLayout(new BorderLayout(5, 5));
 
         comboBoxRow.addItem(5);
         comboBoxRow.addItem(6);
@@ -52,13 +52,13 @@ public class Home
         buttonStart.setText("Start");
         buttonStart.addActionListener(new KeyListener());
 
-        panelHome.setLayout(new GridLayout(4, 1, 1, 1));
+        panelHome.setLayout(new GridLayout(4, 1, 50, 50));
         panelHome.add(textFieldName);
         panelHome.add(comboBoxRow);
         panelHome.add(comboBoxCol);
         panelHome.add(buttonStart);
 
-        frameHome.add(panelHome);
+        frameHome.add(panelHome, BorderLayout.CENTER);
         frameHome.setLocationRelativeTo(null);
         frameHome.setVisible(true);
     }
