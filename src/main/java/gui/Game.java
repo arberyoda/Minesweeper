@@ -48,11 +48,11 @@ public class Game
         this.labelNumberOfMines = new JLabel("Mines", SwingConstants.CENTER);
         this.labelNumberOfLives = new JLabel("Lives", SwingConstants.CENTER);
         this.imageSmileyHappy = new ImageIcon("src/main/resources/smiley-happy.png").getImage();
-        this.imageSmileyHappyResize = imageSmileyHappy.getScaledInstance( 50, 50,  Image.SCALE_SMOOTH ) ;
+        this.imageSmileyHappyResize = imageSmileyHappy.getScaledInstance(50, 50, Image.SCALE_SMOOTH) ;
         this.imageSmileySunglasses = new ImageIcon("src/main/resources/smiley-sunglasses.png").getImage();
-        this.imageSmileySunglassesResize = imageSmileySunglasses.getScaledInstance( 50, 50,  Image.SCALE_SMOOTH );
+        this.imageSmileySunglassesResize = imageSmileySunglasses.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         this.imageSmileyDeath = new ImageIcon("src/main/resources/smiley-death.png").getImage();
-        this.imageSmileyDeathResize = imageSmileyDeath.getScaledInstance( 50, 50,  Image.SCALE_SMOOTH );
+        this.imageSmileyDeathResize = imageSmileyDeath.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
         paint();
     }
