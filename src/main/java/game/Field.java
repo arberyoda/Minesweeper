@@ -219,6 +219,7 @@ public class Field
 
                     if(player.getLives() < 0)
                     {
+                        game.setSmileyDeath();
                         JOptionPane.showMessageDialog(game.getFrameGame(), "Game over!");
                         game.restartGame();
                     }
@@ -230,6 +231,7 @@ public class Field
 
                     if(isWon())
                     {
+                        game.setSmileySunglasses();
                         JOptionPane.showMessageDialog(game.getFrameGame(), "You win!");
                         game.restartGame();
                     }

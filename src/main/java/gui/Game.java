@@ -25,6 +25,12 @@ public class Game
     private JLabel labelClosedFields;
     private JLabel labelNumberOfMines;
     private JLabel labelNumberOfLives;
+    private Image imageSmileyHappy;
+    private Image imageSmileyHappyResize;
+    private Image imageSmileySunglasses;
+    private Image imageSmileySunglassesResize;
+    private Image imageSmileyDeath;
+    private Image imageSmileyDeathResize;
 
     public Game(Home home)
     {
@@ -32,7 +38,7 @@ public class Game
         this.frameGame = new JFrame("Minesweeper");
         this.panelInfo = new JPanel();
         this.panelGame = new JPanel();
-        this.buttonRestart = new JButton("Restart");
+        this.buttonRestart = new JButton();
         this.textFieldOpenFields = new JTextField();
         this.textFieldClosedFields = new JTextField();
         this.textFieldNumberOfMines = new JTextField();
@@ -41,6 +47,12 @@ public class Game
         this.labelClosedFields = new JLabel("Closed fields", SwingConstants.CENTER);
         this.labelNumberOfMines = new JLabel("Mines", SwingConstants.CENTER);
         this.labelNumberOfLives = new JLabel("Lives", SwingConstants.CENTER);
+        this.imageSmileyHappy = new ImageIcon("src/main/resources/smiley-happy.png").getImage();
+        this.imageSmileyHappyResize = imageSmileyHappy.getScaledInstance( 50, 50,  Image.SCALE_SMOOTH ) ;
+        this.imageSmileySunglasses = new ImageIcon("src/main/resources/smiley-sunglasses.png").getImage();
+        this.imageSmileySunglassesResize = imageSmileySunglasses.getScaledInstance( 50, 50,  Image.SCALE_SMOOTH );
+        this.imageSmileyDeath = new ImageIcon("src/main/resources/smiley-death.png").getImage();
+        this.imageSmileyDeathResize = imageSmileyDeath.getScaledInstance( 50, 50,  Image.SCALE_SMOOTH );
 
         paint();
     }
@@ -59,21 +71,33 @@ public class Game
         textFieldOpenFields.setEditable(false);
         textFieldOpenFields.setText(String.valueOf(field.getOpenFields()));
         textFieldOpenFields.setHorizontalAlignment(JTextField.CENTER);
+        textFieldOpenFields.setForeground(Color.RED);
+        textFieldOpenFields.setBackground(Color.BLACK);
+        textFieldOpenFields.setFont(new Font("Arial", Font.BOLD,25));
 
         textFieldClosedFields.setPreferredSize(new Dimension(0, getFrameGame().getHeight()/10));
         textFieldClosedFields.setEditable(false);
         textFieldClosedFields.setText(String.valueOf(field.getFieldsTotal() - field.getOpenFields()));
         textFieldClosedFields.setHorizontalAlignment(JTextField.CENTER);
+        textFieldClosedFields.setForeground(Color.RED);
+        textFieldClosedFields.setBackground(Color.BLACK);
+        textFieldClosedFields.setFont(new Font("Arial", Font.BOLD,25));
 
         textFieldNumberOfMines.setPreferredSize(new Dimension(0, getFrameGame().getHeight()/10));
         textFieldNumberOfMines.setEditable(false);
         textFieldNumberOfMines.setText(String.valueOf(field.getMinesTotal()));
         textFieldNumberOfMines.setHorizontalAlignment(JTextField.CENTER);
+        textFieldNumberOfMines.setForeground(Color.RED);
+        textFieldNumberOfMines.setBackground(Color.BLACK);
+        textFieldNumberOfMines.setFont(new Font("Arial", Font.BOLD,25));
 
         textFieldNumberOfLives.setPreferredSize(new Dimension(0, getFrameGame().getHeight()/10));
         textFieldNumberOfLives.setEditable(false);
         textFieldNumberOfLives.setText(String.valueOf(field.getPlayer().getLives()));
         textFieldNumberOfLives.setHorizontalAlignment(JTextField.CENTER);
+        textFieldNumberOfLives.setForeground(Color.RED);
+        textFieldNumberOfLives.setBackground(Color.BLACK);
+        textFieldNumberOfLives.setFont(new Font("Arial", Font.BOLD,25));
 
         panelInfo.setLayout(new GridLayout(1, 9, 5, 5));
         panelInfo.add(labelOpenFields);
@@ -87,6 +111,7 @@ public class Game
         panelInfo.add(textFieldNumberOfLives);
 
         buttonRestart.addActionListener(new KeyListener());
+        setSmileyHappy();
 
         home.getFrameHome().dispose();
 
@@ -124,6 +149,21 @@ public class Game
     public JTextField getTextFieldNumberOfLives()
     {
         return textFieldNumberOfLives;
+    }
+
+    public void setSmileyHappy()
+    {
+        buttonRestart.setIcon(new ImageIcon(imageSmileyHappyResize));
+    }
+
+    public void setSmileySunglasses()
+    {
+        buttonRestart.setIcon(new ImageIcon(imageSmileySunglassesResize));
+    }
+
+    public void setSmileyDeath()
+    {
+        buttonRestart.setIcon(new ImageIcon(imageSmileyDeathResize));
     }
 
     public void restartGame()
