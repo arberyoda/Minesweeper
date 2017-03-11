@@ -25,12 +25,12 @@ public class Game
     private JLabel labelClosedFields;
     private JLabel labelNumberOfMines;
     private JLabel labelNumberOfLives;
-    private Image imageSmileyHappy;
-    private Image imageSmileyHappyResize;
-    private Image imageSmileySunglasses;
-    private Image imageSmileySunglassesResize;
-    private Image imageSmileyDeath;
-    private Image imageSmileyDeathResize;
+    private Image imageEmojiSmilingFaceWithSmilingEyes;
+    private Image imageEmojiSmilingFaceWithSmilingEyesResize;
+    private Image imageEmojiSmilingFaceWithSunglasses;
+    private Image imageEmojiSmilingFaceWithSunglassesResize;
+    private Image imageEmojiDizzyFace;
+    private Image imageEmojiDizzyFaceResize;
 
     public Game(Home home)
     {
@@ -47,12 +47,12 @@ public class Game
         this.labelClosedFields = new JLabel("Closed fields", SwingConstants.CENTER);
         this.labelNumberOfMines = new JLabel("Mines", SwingConstants.CENTER);
         this.labelNumberOfLives = new JLabel("Lives", SwingConstants.CENTER);
-        this.imageSmileyHappy = new ImageIcon("src/main/resources/smiley-happy.png").getImage();
-        this.imageSmileyHappyResize = imageSmileyHappy.getScaledInstance(50, 50, Image.SCALE_SMOOTH) ;
-        this.imageSmileySunglasses = new ImageIcon("src/main/resources/smiley-sunglasses.png").getImage();
-        this.imageSmileySunglassesResize = imageSmileySunglasses.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        this.imageSmileyDeath = new ImageIcon("src/main/resources/smiley-death.png").getImage();
-        this.imageSmileyDeathResize = imageSmileyDeath.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.imageEmojiSmilingFaceWithSmilingEyes = new ImageIcon("src/main/resources/emoji-smiling-face-with-smiling-eyes.png").getImage();
+        this.imageEmojiSmilingFaceWithSmilingEyesResize = imageEmojiSmilingFaceWithSmilingEyes.getScaledInstance(50, 50, Image.SCALE_SMOOTH) ;
+        this.imageEmojiSmilingFaceWithSunglasses = new ImageIcon("src/main/resources/emoji-smiling-face-with-sunglasses.png").getImage();
+        this.imageEmojiSmilingFaceWithSunglassesResize = imageEmojiSmilingFaceWithSunglasses.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.imageEmojiDizzyFace = new ImageIcon("src/main/resources/emoji-dizzy-face.png").getImage();
+        this.imageEmojiDizzyFaceResize = imageEmojiDizzyFace.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
         paint();
     }
@@ -111,7 +111,7 @@ public class Game
         panelInfo.add(textFieldNumberOfLives);
 
         buttonRestart.addActionListener(new KeyListener());
-        setSmileyHappy();
+        setEmojiSmilingFaceWithSmilingEyes();
 
         home.getFrameHome().dispose();
 
@@ -151,19 +151,19 @@ public class Game
         return textFieldNumberOfLives;
     }
 
-    public void setSmileyHappy()
+    public void setEmojiSmilingFaceWithSmilingEyes()
     {
-        buttonRestart.setIcon(new ImageIcon(imageSmileyHappyResize));
+        buttonRestart.setIcon(new ImageIcon(imageEmojiSmilingFaceWithSmilingEyesResize));
     }
 
-    public void setSmileySunglasses()
+    public void setEmojiSmilingFaceWithSunglasses()
     {
-        buttonRestart.setIcon(new ImageIcon(imageSmileySunglassesResize));
+        buttonRestart.setIcon(new ImageIcon(imageEmojiSmilingFaceWithSunglassesResize));
     }
 
-    public void setSmileyDeath()
+    public void setEmojiDizzyFace()
     {
-        buttonRestart.setIcon(new ImageIcon(imageSmileyDeathResize));
+        buttonRestart.setIcon(new ImageIcon(imageEmojiDizzyFaceResize));
     }
 
     public void restartGame()

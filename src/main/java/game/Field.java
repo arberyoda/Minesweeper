@@ -26,6 +26,8 @@ public class Field
     private int minesAround;
     private boolean isWon;
     private int fieldsTotal;
+    private Image imageEmojiBomb;
+    private Image imageEmojiBombResize;
 
     public Field(Home home, Game game)
     {
@@ -40,6 +42,8 @@ public class Field
         this.minesAround = 0;
         this.isWon = false;
         this.fieldsTotal = 0;
+        this.imageEmojiBomb = new ImageIcon("src/main/resources/emoji-bomb.png").getImage();
+        this.imageEmojiBombResize = imageEmojiBomb.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
         createField();
     }
@@ -108,9 +112,9 @@ public class Field
 
     public void minesAround()
     {
-        for(int row = 0; row < singleFields.length; row++)
+        for(int row = 0; row < this.row; row++)
         {
-            for(int col = 0; col < singleFields.length; col++)
+            for(int col = 0; col < this.col; col++)
             {
                 if(!(singleFields[row][col].isMine()))
                 {
@@ -120,7 +124,7 @@ public class Field
                     {
                         for(int c = col - 1; c <= col + 1; c++)
                         {
-                            if(0 <= r && r < singleFields.length && 0 <= c && c < singleFields.length)
+                            if(0 <= r && r < this.row && 0 <= c && c < this.col)
                             {
                                 if(singleFields[r][c].isMine())
                                 {
@@ -143,7 +147,7 @@ public class Field
 
     private void winningCondition()
     {
-        if(getFieldsTotal() - getMinesTotal() == getOpenFields() - getMinesTotal())
+        if(getFieldsTotal() - getMinesTotal() == getOpenFieldsWithoutMines())
         {
             setWon(true);
         }
@@ -176,6 +180,27 @@ public class Field
         }
 
         return openFields;
+    }
+
+    public int getOpenFieldsWithoutMines()
+    {
+        int openFieldsWithoutMines = 0;
+
+        for(int r=0; r<row; r++)
+        {
+            for(int c=0; c<col; c++)
+            {
+                if(singleFields[r][c].isOpen())
+                {
+                    if(!singleFields[r][c].isMine())
+                    {
+                        openFieldsWithoutMines++;
+                    }
+                }
+            }
+        }
+
+        return openFieldsWithoutMines;
     }
 
     public int getFieldsTotal()
@@ -211,7 +236,7 @@ public class Field
                 if(singleField.isMine())
                 {
                     singleField.setBackground(Color.red);
-                    singleField.setText("X");
+                    singleField.setIcon(new ImageIcon(imageEmojiBombResize));
                     player.setLives(player.getLives() - 1);
                     game.getTextFieldNumberOfLives().setText(String.valueOf(player.getLives()));
                     setMinesCurrent(getMinesCurrent() - 1);
@@ -219,7 +244,7 @@ public class Field
 
                     if(player.getLives() < 0)
                     {
-                        game.setSmileyDeath();
+                        game.setEmojiDizzyFace();
                         JOptionPane.showMessageDialog(game.getFrameGame(), "Game over!");
                         game.restartGame();
                     }
@@ -231,7 +256,7 @@ public class Field
 
                     if(isWon())
                     {
-                        game.setSmileySunglasses();
+                        game.setEmojiSmilingFaceWithSunglasses();
                         JOptionPane.showMessageDialog(game.getFrameGame(), "You win!");
                         game.restartGame();
                     }
