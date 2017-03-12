@@ -25,14 +25,6 @@ public class Game
     private JLabel labelClosedFields;
     private JLabel labelNumberOfMines;
     private JLabel labelNumberOfLives;
-    private Image imageEmojiSmilingFaceWithSmilingEyes;
-    private Image imageEmojiSmilingFaceWithSmilingEyesResize;
-    private Image imageEmojiSmilingFaceWithSunglasses;
-    private Image imageEmojiSmilingFaceWithSunglassesResize;
-    private Image imageEmojiDizzyFace;
-    private Image imageEmojiDizzyFaceResize;
-    private Image imageEmojiFearfulFace;
-    private Image imageEmojiFearfulFaceResize;
 
     public Game(Home home)
     {
@@ -45,18 +37,10 @@ public class Game
         this.textFieldClosedFields = new JTextField();
         this.textFieldNumberOfMines = new JTextField();
         this.textFieldNumberOfLives = new JTextField();
-        this.labelOpenFields = new JLabel("Open fields", SwingConstants.CENTER);
-        this.labelClosedFields = new JLabel("Closed fields", SwingConstants.CENTER);
+        this.labelOpenFields = new JLabel("Open", SwingConstants.CENTER);
+        this.labelClosedFields = new JLabel("Closed", SwingConstants.CENTER);
         this.labelNumberOfMines = new JLabel("Mines", SwingConstants.CENTER);
         this.labelNumberOfLives = new JLabel("Lives", SwingConstants.CENTER);
-        this.imageEmojiSmilingFaceWithSmilingEyes = new ImageIcon("src/main/resources/emoji-smiling-face-with-smiling-eyes.png").getImage();
-        this.imageEmojiSmilingFaceWithSmilingEyesResize = imageEmojiSmilingFaceWithSmilingEyes.getScaledInstance(50, 50, Image.SCALE_SMOOTH) ;
-        this.imageEmojiSmilingFaceWithSunglasses = new ImageIcon("src/main/resources/emoji-smiling-face-with-sunglasses.png").getImage();
-        this.imageEmojiSmilingFaceWithSunglassesResize = imageEmojiSmilingFaceWithSunglasses.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        this.imageEmojiDizzyFace = new ImageIcon("src/main/resources/emoji-dizzy-face.png").getImage();
-        this.imageEmojiDizzyFaceResize = imageEmojiDizzyFace.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        this.imageEmojiFearfulFace = new ImageIcon("src/main/resources/emoji-fearful-face.png").getImage();
-        this.imageEmojiFearfulFaceResize = imageEmojiFearfulFace.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
         paint();
     }
@@ -67,6 +51,7 @@ public class Game
         frameGame.setSize(800, 600);
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.setLayout(new BorderLayout(0, 0));
+        frameGame.setIconImage(Emoji.getBomb());
 
         Field field = new Field(home, Game.this);
         field.placeMines();
@@ -103,6 +88,11 @@ public class Game
         textFieldNumberOfLives.setBackground(Color.BLACK);
         textFieldNumberOfLives.setFont(new Font("Arial", Font.BOLD,25));
 
+        labelOpenFields.setFont(new Font("Arial", Font.PLAIN,20));
+        labelClosedFields.setFont(new Font("Arial", Font.PLAIN,20));
+        labelNumberOfMines.setFont(new Font("Arial", Font.PLAIN,20));
+        labelNumberOfLives.setFont(new Font("Arial", Font.PLAIN,20));
+
         panelInfo.setLayout(new GridLayout(1, 9, 5, 5));
         panelInfo.add(labelOpenFields);
         panelInfo.add(textFieldOpenFields);
@@ -115,7 +105,7 @@ public class Game
         panelInfo.add(textFieldNumberOfLives);
 
         buttonRestart.addActionListener(new KeyListener());
-        setEmojiSmilingFaceWithSmilingEyes();
+        setButtonSmilingFaceWithSmilingEyes();
 
         home.getFrameHome().dispose();
 
@@ -155,24 +145,24 @@ public class Game
         return textFieldNumberOfLives;
     }
 
-    public void setEmojiSmilingFaceWithSmilingEyes()
+    public void setButtonSmilingFaceWithSmilingEyes()
     {
-        buttonRestart.setIcon(new ImageIcon(imageEmojiSmilingFaceWithSmilingEyesResize));
+        buttonRestart.setIcon(new ImageIcon(Emoji.getSmilingFaceWithSmilingEyes()));
     }
 
-    public void setEmojiSmilingFaceWithSunglasses()
+    public void setButtonSmilingFaceWithSunglasses()
     {
-        buttonRestart.setIcon(new ImageIcon(imageEmojiSmilingFaceWithSunglassesResize));
+        buttonRestart.setIcon(new ImageIcon(Emoji.getSmilingFaceWithSunglasses()));
     }
 
-    public void setEmojiDizzyFace()
+    public void setButtonDizzyFace()
     {
-        buttonRestart.setIcon(new ImageIcon(imageEmojiDizzyFaceResize));
+        buttonRestart.setIcon(new ImageIcon(Emoji.getDizzyFace()));
     }
 
-    public void setEmojiFearfulFace()
+    public void setButtonFearfulFace()
     {
-        buttonRestart.setIcon(new ImageIcon(imageEmojiFearfulFaceResize));
+        buttonRestart.setIcon(new ImageIcon(Emoji.getFearfulFace()));
     }
 
     public void restartGame()

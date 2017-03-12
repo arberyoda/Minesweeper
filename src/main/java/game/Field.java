@@ -1,5 +1,6 @@
 package game;
 
+import gui.Emoji;
 import gui.Game;
 import gui.Home;
 
@@ -27,10 +28,7 @@ public class Field
     private int minesAround;
     private boolean isWon;
     private int fieldsTotal;
-    private Image imageEmojiBomb;
-    private Image imageEmojiBombResize;
-    private Image imageEmojiTriangularFlag;
-    private Image imageEmojiTriangularFlagResize;
+    private JLabel labelMessageDialog;
 
     public Field(Home home, Game game)
     {
@@ -45,10 +43,8 @@ public class Field
         this.minesAround = 0;
         this.isWon = false;
         this.fieldsTotal = 0;
-        this.imageEmojiBomb = new ImageIcon("src/main/resources/emoji-bomb.png").getImage();
-        this.imageEmojiBombResize = imageEmojiBomb.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-        this.imageEmojiTriangularFlag = new ImageIcon("src/main/resources/emoji-triangular-flag.png").getImage();
-        this.imageEmojiTriangularFlagResize = imageEmojiTriangularFlag.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        this.labelMessageDialog = new JLabel();
+        this.labelMessageDialog.setFont(new Font("Arial", Font.PLAIN, 20));
 
         createField();
     }
@@ -242,16 +238,26 @@ public class Field
                 if(singleField.isMine())
                 {
                     singleField.setBackground(new Color(255, 0, 0));
-                    singleField.setIcon(new ImageIcon(imageEmojiBombResize));
+                    singleField.setIcon(new ImageIcon(Emoji.getBomb()));
                     player.setLives(player.getLives() - 1);
-                    game.getTextFieldNumberOfLives().setText(String.valueOf(player.getLives()));
+
+                    if(player.getLives() >= 0)
+                    {
+                        game.getTextFieldNumberOfLives().setText(String.valueOf(player.getLives()));
+                    }
+                    else
+                    {
+                        game.getTextFieldNumberOfLives().setText("");
+                    }
+
                     setMinesCurrent(getMinesCurrent() - 1);
                     game.getTextFieldNumberOfMines().setText(String.valueOf(getMinesCurrent()));
 
                     if(player.getLives() < 0)
                     {
-                        game.setEmojiDizzyFace();
-                        JOptionPane.showMessageDialog(game.getFrameGame(), "Game over!");
+                        game.setButtonDizzyFace();
+                        labelMessageDialog.setText("Game Over!");
+                        JOptionPane.showMessageDialog(game.getFrameGame(), labelMessageDialog, "Info", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Emoji.getCollision()));
                         game.restartGame();
                     }
                 }
@@ -262,8 +268,9 @@ public class Field
 
                     if(isWon())
                     {
-                        game.setEmojiSmilingFaceWithSunglasses();
-                        JOptionPane.showMessageDialog(game.getFrameGame(), "You win!");
+                        game.setButtonSmilingFaceWithSunglasses();
+                        labelMessageDialog.setText("You Win!");
+                        JOptionPane.showMessageDialog(game.getFrameGame(), labelMessageDialog, "Info", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Emoji.getPartyPopper()));
                         game.restartGame();
                     }
                 }
@@ -287,7 +294,7 @@ public class Field
                     if(!singleField.isFlagged())
                     {
                         singleField.setFlagged(true);
-                        singleField.setIcon(new ImageIcon(imageEmojiTriangularFlagResize));
+                        singleField.setIcon(new ImageIcon(Emoji.getTriangularFlag()));
                     }
                     else
                     {
@@ -304,13 +311,13 @@ public class Field
 
             if(singleField.isFlagged() == false && singleField.isOpen() == false && SwingUtilities.isRightMouseButton(e) == false)
             {
-                game.setEmojiFearfulFace();
+                game.setButtonFearfulFace();
             }
         }
 
         public void mouseReleased(MouseEvent e)
         {
-            game.setEmojiSmilingFaceWithSmilingEyes();
+            game.setButtonSmilingFaceWithSmilingEyes();
         }
 
         public void mouseEntered(MouseEvent e)

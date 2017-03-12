@@ -34,6 +34,7 @@ public class Home
         frameHome.setSize(800, 600);
         frameHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameHome.setLayout(new BorderLayout(5, 5));
+        frameHome.setIconImage(Emoji.getBomb());
 
         comboBoxRow.addItem(5);
         comboBoxRow.addItem(6);

@@ -72,16 +72,32 @@ public class SingleField extends JButton
                 setForeground(null);
                 break;
             case 1:
-                setForeground(new Color(0, 0, 255));
+                setForeground(new Color(1, 0, 254));
                 break;
             case 2:
-                setForeground(new Color(0, 123, 0));
+                setForeground(new Color(0, 128, 0));
                 break;
             case 3:
-                setForeground(new Color(255, 0, 0));
+                setForeground(new Color(254, 0, 0));
                 break;
+            case 4:
+                setForeground(new Color(1, 0, 128));
+                break;
+            case 5:
+                setForeground(new Color(128, 0, 0));
+                break;
+            case 6:
+                setForeground(new Color(0, 128, 129));
+                break;
+            case 7:
+                setForeground(new Color(0, 0, 0));
+                break;
+            case 8:
+                setForeground(new Color(128, 128, 128));
+                break;
+
             default:
-                setForeground(new Color(255, 0, 0));
+                setForeground(null);
         }
 
         setText(String.valueOf(coloredNumber));
