@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 /**
@@ -28,6 +29,8 @@ public class Field
     private int fieldsTotal;
     private Image imageEmojiBomb;
     private Image imageEmojiBombResize;
+    private Image imageEmojiTriangularFlag;
+    private Image imageEmojiTriangularFlagResize;
 
     public Field(Home home, Game game)
     {
@@ -43,7 +46,9 @@ public class Field
         this.isWon = false;
         this.fieldsTotal = 0;
         this.imageEmojiBomb = new ImageIcon("src/main/resources/emoji-bomb.png").getImage();
-        this.imageEmojiBombResize = imageEmojiBomb.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.imageEmojiBombResize = imageEmojiBomb.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        this.imageEmojiTriangularFlag = new ImageIcon("src/main/resources/emoji-triangular-flag.png").getImage();
+        this.imageEmojiTriangularFlagResize = imageEmojiTriangularFlag.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 
         createField();
     }
@@ -59,6 +64,7 @@ public class Field
                 singleFields[r][c] = new SingleField();
                 game.getPanelGame().add(singleFields[r][c]);
                 singleFields[r][c].addActionListener(new KeyListener());
+                singleFields[r][c].addMouseListener(new MouseListener());
             }
         }
 
@@ -68,7 +74,7 @@ public class Field
 
     private void calculateMines()
     {
-        minesTotal = Math.round((row + col) / 2); // TODO Make better calculation
+        setMinesTotal(Math.round((row + col) / 2)); // TODO Make better calculation
         setMinesCurrent(minesTotal);
     }
 
@@ -227,7 +233,7 @@ public class Field
 
             SingleField singleField = (SingleField) e.getSource();
 
-            if(!singleField.isOpen())
+            if(singleField.isOpen() == false && singleField.isFlagged() == false)
             {
                 singleField.setOpen(true);
                 game.getTextFieldOpenFields().setText(String.valueOf(getOpenFields()));
@@ -235,7 +241,7 @@ public class Field
 
                 if(singleField.isMine())
                 {
-                    singleField.setBackground(Color.red);
+                    singleField.setBackground(new Color(255, 0, 0));
                     singleField.setIcon(new ImageIcon(imageEmojiBombResize));
                     player.setLives(player.getLives() - 1);
                     game.getTextFieldNumberOfLives().setText(String.valueOf(player.getLives()));
@@ -251,8 +257,8 @@ public class Field
                 }
                 else
                 {
-                    singleField.setBackground(Color.gray);
-                    singleField.setText(String.valueOf(singleField.getNumber()));
+                    singleField.setBackground(new Color(192, 202, 192));
+                    singleField.setColoredText(singleField.getNumber());
 
                     if(isWon())
                     {
@@ -265,6 +271,54 @@ public class Field
                 System.out.println(player.toString());
                 System.out.println(singleField.toString());
             }
+        }
+    }
+
+    class MouseListener implements java.awt.event.MouseListener
+    {
+        public void mouseClicked(MouseEvent e)
+        {
+            SingleField singleField = (SingleField) e.getSource();
+
+            if(SwingUtilities.isRightMouseButton(e))
+            {
+                if(!singleField.isOpen())
+                {
+                    if(!singleField.isFlagged())
+                    {
+                        singleField.setFlagged(true);
+                        singleField.setIcon(new ImageIcon(imageEmojiTriangularFlagResize));
+                    }
+                    else
+                    {
+                        singleField.setFlagged(false);
+                        singleField.setIcon(null);
+                    }
+                }
+            }
+        }
+
+        public void mousePressed(MouseEvent e)
+        {
+            SingleField singleField = (SingleField) e.getSource();
+
+            if(singleField.isFlagged() == false && singleField.isOpen() == false && SwingUtilities.isRightMouseButton(e) == false)
+            {
+                game.setEmojiFearfulFace();
+            }
+        }
+
+        public void mouseReleased(MouseEvent e)
+        {
+            game.setEmojiSmilingFaceWithSmilingEyes();
+        }
+
+        public void mouseEntered(MouseEvent e)
+        {
+        }
+
+        public void mouseExited(MouseEvent e)
+        {
         }
     }
 }

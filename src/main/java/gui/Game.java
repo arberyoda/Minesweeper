@@ -31,6 +31,8 @@ public class Game
     private Image imageEmojiSmilingFaceWithSunglassesResize;
     private Image imageEmojiDizzyFace;
     private Image imageEmojiDizzyFaceResize;
+    private Image imageEmojiFearfulFace;
+    private Image imageEmojiFearfulFaceResize;
 
     public Game(Home home)
     {
@@ -53,6 +55,8 @@ public class Game
         this.imageEmojiSmilingFaceWithSunglassesResize = imageEmojiSmilingFaceWithSunglasses.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         this.imageEmojiDizzyFace = new ImageIcon("src/main/resources/emoji-dizzy-face.png").getImage();
         this.imageEmojiDizzyFaceResize = imageEmojiDizzyFace.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        this.imageEmojiFearfulFace = new ImageIcon("src/main/resources/emoji-fearful-face.png").getImage();
+        this.imageEmojiFearfulFaceResize = imageEmojiFearfulFace.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
         paint();
     }
@@ -62,7 +66,7 @@ public class Game
         frameGame.setResizable(false);
         frameGame.setSize(800, 600);
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameGame.setLayout(new BorderLayout(5, 5));
+        frameGame.setLayout(new BorderLayout(0, 0));
 
         Field field = new Field(home, Game.this);
         field.placeMines();
@@ -164,6 +168,11 @@ public class Game
     public void setEmojiDizzyFace()
     {
         buttonRestart.setIcon(new ImageIcon(imageEmojiDizzyFaceResize));
+    }
+
+    public void setEmojiFearfulFace()
+    {
+        buttonRestart.setIcon(new ImageIcon(imageEmojiFearfulFaceResize));
     }
 
     public void restartGame()
