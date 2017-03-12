@@ -3,6 +3,8 @@ package main;
 import gui.Home;
 
 /**
+ * The class Main of Minesweeper
+ *
  * @author Arber Heqimi
  * @version 1.0
  */

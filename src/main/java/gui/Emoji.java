@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * The class Emoji provides the various emojis.
+ *
  * @author Arber Heqimi
  * @version 1.0
  */
@@ -22,6 +24,13 @@ public class Emoji
     {
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji smiling face with smiling eyes
+     *
+     * @return The scaled emoji width 50 height 50
+     */
     public static Image getSmilingFaceWithSmilingEyes()
     {
         Image imageSmilingFaceWithSmilingEyesResize = IMAGE_SMILING_FACE_WITH_SMILING_EYES.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -29,6 +38,13 @@ public class Emoji
         return imageSmilingFaceWithSmilingEyesResize;
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji smiling face with sunglasses
+     *
+     * @return The scaled emoji width 50 height 50
+     */
     public static Image getSmilingFaceWithSunglasses()
     {
         Image imageSmilingFaceWithSunglassesResize = IMAGE_SMILING_FACE_WITH_SUNGLASSES.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -36,6 +52,13 @@ public class Emoji
         return imageSmilingFaceWithSunglassesResize;
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji dizzy face
+     *
+     * @return The scaled emoji width 50 height 50
+     */
     public static Image getDizzyFace()
     {
         Image imageDizzyFaceResize = IMAGE_DIZZY_FACE.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -43,6 +66,13 @@ public class Emoji
         return imageDizzyFaceResize;
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji fearful face
+     *
+     * @return The scaled emoji width 50 height 50
+     */
     public static Image getFearfulFace()
     {
         Image imageFearfulFaceResize = IMAGE_FEARFUL_FACE.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -50,6 +80,13 @@ public class Emoji
         return imageFearfulFaceResize;
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji bomb
+     *
+     * @return The scaled emoji width 40 height 40
+     */
     public static Image getBomb()
     {
         Image imageEmojiBombResize = IMAGE_BOMB.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
@@ -57,6 +94,13 @@ public class Emoji
         return imageEmojiBombResize;
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji triangular flag
+     *
+     * @return The scaled emoji width 40 height 40
+     */
     public static Image getTriangularFlag()
     {
         Image imageTriangularFlagResize = IMAGE_TRIANGULAR_FLAG.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
@@ -64,6 +108,13 @@ public class Emoji
         return imageTriangularFlagResize;
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji party popper
+     *
+     * @return The scaled emoji width 50 height 50
+     */
     public static Image getPartyPopper()
     {
         Image imagePartyPopperResize = IMAGE_PARTY_POPPER.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -71,6 +122,13 @@ public class Emoji
         return imagePartyPopperResize;
     }
 
+    /**
+     * Returns a scaled emoji as an Image
+     * <br><br>
+     * Emoji collision
+     *
+     * @return The scaled emoji width 50 height 50
+     */
     public static Image getCollision()
     {
         Image imageCollisionResize = IMAGE_COLLISION.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
