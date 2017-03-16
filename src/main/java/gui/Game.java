@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
+ * The class Game represents the game window of Minesweeper
+ *
  * @author Arber Heqimi
  * @version 1.0
  */
@@ -33,6 +35,9 @@ public class Game
     private JButton buttonBack;
     private JButton buttonRestart;
 
+    /**
+     * Initializes the class Game
+     */
     public Game(Home home)
     {
         this.home = home;
@@ -56,6 +61,9 @@ public class Game
         paint();
     }
 
+    /**
+     * Initializes all components of the class Game
+     */
     public void paint()
     {
         frameGame.setResizable(false);
@@ -146,62 +154,110 @@ public class Game
         frameGame.setVisible(true);
     }
 
+    /**
+     * Returns the frame of Game
+     *
+     * @return The frame of Game
+     */
     public JFrame getFrameGame()
     {
         return frameGame;
     }
 
+    /**
+     * Returns panelGame
+     *
+     * @return PanelGame
+     */
     public JPanel getPanelGame()
     {
         return panelGame;
     }
 
+    /**
+     * Returns the textFieldOpenFields
+     *
+     * @return The textFieldOpenFields
+     */
     public JTextField getTextFieldOpenFields()
     {
         return textFieldOpenFields;
     }
 
+    /**
+     * Returns the textFieldClosedFields
+     *
+     * @return The textFieldClosedFields
+     */
     public JTextField getTextFieldClosedFields()
     {
         return textFieldClosedFields;
     }
 
+    /**
+     * Returns the textFieldNumberOfMines
+     *
+     * @return The textFieldNumberOfMines
+     */
     public JTextField getTextFieldNumberOfMines()
     {
         return textFieldNumberOfMines;
     }
 
+    /**
+     * Returns the textFieldNumberOfLives
+     *
+     * @return The textFieldNumberOfLives
+     */
     public JTextField getTextFieldNumberOfLives()
     {
         return textFieldNumberOfLives;
     }
 
+    /**
+     * Sets the restart button with smiley smiling face with smiling eyes
+     */
     public void setButtonSmilingFaceWithSmilingEyes()
     {
         buttonRestart.setIcon(new ImageIcon(Emoji.getSmilingFaceWithSmilingEyes()));
     }
 
+    /**
+     * Sets the restart button with smiley smiling face with sunglasses
+     */
     public void setButtonSmilingFaceWithSunglasses()
     {
         buttonRestart.setIcon(new ImageIcon(Emoji.getSmilingFaceWithSunglasses()));
     }
 
+    /**
+     * Sets the restart button with smiley dizzy face
+     */
     public void setButtonDizzyFace()
     {
         buttonRestart.setIcon(new ImageIcon(Emoji.getDizzyFace()));
     }
 
+    /**
+     * Sets the restart button with smiley fearful face
+     */
     public void setButtonFearfulFace()
     {
         buttonRestart.setIcon(new ImageIcon(Emoji.getFearfulFace()));
     }
 
+    /**
+     * Restarts the actual game
+     */
     public void restartGame() // TODO uncertain
     {
-        frameGame.dispose();
-        home.setGame(new Game(home));
+        frameGame.dispose(); // Close the actual window
+        home.setGame(new Game(home)); // Overwrites the actual Game object with new Game object
     }
 
+    /**
+     * KeyListener for the restart button
+     */
     class KeyListenerRestart implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
@@ -210,6 +266,9 @@ public class Game
         }
     }
 
+    /**
+     * MouseListener for the restart button
+     */
     class MouseListenerRestart implements MouseListener
     {
         public void mouseClicked(MouseEvent e)
@@ -237,12 +296,15 @@ public class Game
         }
     }
 
+    /**
+     * KeyListener for the back button
+     */
     class KeyListenerBack implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
-            home.getButtonBack().setEnabled(true);
-            home.getFrameHome().setVisible(true);
+            home.getButtonBack().setEnabled(true); // Enables the back button in the home window
+            home.getFrameHome().setVisible(true); // First, make Home visible and then make Game unvisible, not otherwise.
             frameGame.setVisible(false);
         }
     }

@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * The class Home represents the window for the settings of Minesweeper
+ *
  * @author Arber Heqimi
  * @version 1.0
  */
@@ -25,6 +27,9 @@ public class Home
     private JButton buttonStart;
     private JButton buttonBack;
 
+    /**
+     * Initializes the class Home
+     */
     public Home()
     {
         this.frameHome = new JFrame("Minesweeper");
@@ -41,6 +46,9 @@ public class Home
         this.buttonBack = new JButton();
     }
 
+    /**
+     * Initializes all components of the class Home
+     */
     public void paint()
     {
         frameHome.setResizable(false);
@@ -109,57 +117,91 @@ public class Home
         frameHome.setVisible(true);
     }
 
+    /**
+     * Returns the number of the rows
+     *
+     * @return The number of the rows
+     */
     public int getRow()
     {
         return (Integer) comboBoxRow.getSelectedItem();
     }
 
+    /**
+     * Returns the number of the columns
+     *
+     * @return The number of the columns
+     */
     public int getCol()
     {
         return (Integer) comboBoxCol.getSelectedItem();
     }
 
+    /**
+     * Returns the name of the Player
+     *
+     * @return The name of the Player
+     */
     public String getName()
     {
         return textFieldName.getText();
     }
 
+    /**
+     * Returns the frame of Home
+     *
+     * @return The frame of Home
+     */
     public JFrame getFrameHome()
     {
         return frameHome;
     }
 
+    /**
+     * Returns the button back
+     *
+     * @return The button back
+     */
     public JButton getButtonBack()
     {
         return buttonBack;
     }
 
-    public Game getGame()
-    {
-        return game;
-    }
-
+    /**
+     * Sets the actual Game object
+     *
+     * @param game The actual Game object
+     */
     public void setGame(Game game)
     {
         this.game = game;
     }
 
+    /**
+     * KeyListener for the start button
+     */
     class KeyListenerStart implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
-            game = new Game(Home.this);
-            frameHome.setVisible(false);
+            game = new Game(Home.this); // Create new Game
+            frameHome.setVisible(false); // After creating new Game, set Home invisible, not otherwise.
         }
     }
 
+    /**
+     * KeyListener for the back button
+     */
     class KeyListenerBack implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
-            if(game != null) // Only for safety
+            /*
+            If and only if Game exists, set Game visible and Home unvisible
+             */
+            if(game != null)
             {
-                game.getFrameGame().setVisible(true);
+                game.getFrameGame().setVisible(true); // First, make Game visible and then make Home unvisible, not otherwise.
                 frameHome.setVisible(false);
             }
         }
