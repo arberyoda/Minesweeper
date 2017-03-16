@@ -51,7 +51,7 @@ public class Field
 
     public void createField()
     {
-        game.getPanelGame().setLayout(new GridLayout(row, col));
+        game.getPanelGame().setLayout(new GridLayout(row, col, 0, 0));
 
         for(int r=0; r<row; r++)
         {
@@ -263,7 +263,7 @@ public class Field
                 }
                 else
                 {
-                    singleField.setBackground(new Color(192, 202, 192));
+                    singleField.setBackground(new Color(215, 215, 215));
                     singleField.setColoredText(singleField.getNumber());
 
                     if(isWon())

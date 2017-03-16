@@ -26,7 +26,7 @@ public class SingleField extends JButton
         this.isOpen = false;
         this.isFlagged = false;
         setFont(new Font("Arial", Font.BOLD,20));
-        setBackground(new Color(192, 192, 192));
+        setBackground(new Color(255, 255, 255));
     }
 
     /**
